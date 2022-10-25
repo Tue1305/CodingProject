@@ -1,0 +1,55 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 14-Jul-2022, 11:49:23 AM
+    Author     : trant
+*/
+* {
+  margin:0;
+  padding:0;
+  font-family : Helvetica;
+  font-weight : 300;
+  font-size : 20px;
+}
+header {
+  padding:70px;
+  border: 2px dashed #B1B1B1;
+  margin : 10px;;
+  border-radius : 7px;
+}
+.hello {
+  position : relative;
+  color: red;
+  -webkit-animation :
+    hello 5s 1s  linear infinite alternate,
+    cominghello 1s;
+  
+}
+.htmlcss {
+  position : relative;
+  color : orange;
+  left: 600px;
+  -webkit-animation : 
+    htmlcss 5s 1s linear infinite alternate,
+    cominghtmlcss 1s;
+}
+/*Anim declarations*/
+@-webkit-keyframes cominghello {
+  0% { top: -100px; left : -50px; opacity : 0 }
+  100% { top: 0px; left : -50px; opacity: 1}
+}
+@-webkit-keyframes hello {
+  from { left:-50px; color: red; }
+  to { left: 900px; color : white; }
+}
+@-webkit-keyframes cominghtmlcss {
+  from { left:550px; top: 100px; }
+  to { left: 550px; top: 0; }
+}
+@-webkit-keyframes htmlcss {
+  from { left:550px; color: orange; }
+  to { left: -100px; color : white; }
+}
+

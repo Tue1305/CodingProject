@@ -1,0 +1,5 @@
+com\mycompany\myjsp\resources\JavaEE8Resource.class
+com\mycompany\myjsp\User.class
+com\mycompany\myjsp\UserDao.class
+com\mycompany\myjsp\LoginServlet.class
+com\mycompany\myjsp\JAXRSConfiguration.class

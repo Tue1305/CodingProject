@@ -1,0 +1,28 @@
+<br/>  
+
+<h1 style="padding-left: 30px">Add New User</h1>  
+<form action="adduser.jsp" method="post" style="padding-left: 30px">  
+    <table  class="table table-bordered table-striped" style="padding-left: 20px">  
+        <tr><td>Name:</td><td><input type="text" name="name"  onmouseover='change(&quot;ex1&quot;)' /></td></tr>  
+        <tr><td>Password:</td><td>  
+                <input type="password" name="password"/></td></tr>  
+        <tr><td>Email:</td><td><input type="email" name="email"/></td></tr>  
+        <tr><td>Sex:</td><td>  
+                <input type="radio" name="sex" value="Male"/>Male   
+                <input type="radio" name="sex" value="Female"/>Female </td></tr>  
+        <tr><td>Country:</td><td>  
+                <select name="country" style="width:155px">  
+                    <option>India</option>  
+                    <option>Pakistan</option>  
+                    <option>Afghanistan</option>  
+                    <option>Berma</option>  
+                    <option>Other</option>  
+                </select>  
+            </td></tr>
+        <tr><td rowspan="2"><input type="submit" value="Add User"/></td>
+            <td><a  href="viewusers.jsp">View All Records</a></td>
+            </tr>
+
+    </table>  
+
+</form>  
