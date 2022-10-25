@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script>
+        var marginleft = 3;
+        var marginright = 10;
+        const CONST_WIDTH = 90
+        const CONST_X1 = 10;
+        const CONST_HEIGHT = 20;
+        function wrapText(ctx, x, y, width, height, text, maxWidth, lineHeight, fontsize = "10px Noto Serif", backgroundcolor = "#ffffff", bordercolor = "#c3c3c3", textcolor = "#000000") {
+            var textwidth = ctx.measureText(text).width;
+            var words = text.toString().split(' ');
+            // console.log(words);
+            // console.log(maxWidth);
+            ctx.fillStyle = backgroundcolor;
+            ctx.font = fontsize;
+            ctx.fillRect(x, y, width, height);
+            ctx.strokeRect(x, y, width, height);
+            ctx.strokeStyle = bordercolor;
+            ctx.fillStyle = textcolor;
+            // console.log(lineHeight);
+            var line = '';
+
+            for (var n = 0; n < words.length; n++) {
+                var testLine = line + words[n] + ' ';
+                var metrics = ctx.measureText(testLine);
+                var testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    ctx.fillText(line, x + marginleft, y + height / 2);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                    // console.log(line)
+                }
+                else {
+                    line = testLine;
+                }
+            }
+
+            ctx.fillText(line, x + marginleft, y + height / 2);
+        }
+
+        function drawcell(ctx, x, y, width, height, text, fontsize = "10px Arial", backgroundcolor = "#ffffff", bordercolor = "#c3c3c3", textcolor = "#000000") {
+            var textwidth = ctx.measureText(text).width;
+            ctx.fillStyle = backgroundcolor;
+            ctx.font =  fontsize;
+            ctx.fillRect(x, y, width, height);
+            ctx.strokeRect(x, y, width, height);
+            ctx.strokeStyle = bordercolor;
+            ctx.fillStyle = textcolor;
+            // ctx.moveTo(x , y + height/2);
+            // ctx.lineTo(x + width ,y + height/2);
+            // ctx.moveTo(x + width/2, y);
+            // ctx.lineTo(x + width/2, y + height )
+            ctx.stroke();
+            ctx.fillText(text, x + marginleft, y + height / 2 + 4,);
+        };
+        function drawcellright(ctx, x, y, width, height, text, fontsize = "10px Arial", backgroundcolor = "#ffffff", bordercolor = "#c3c3c3", textcolor = "#000000") {
+            var textwidth = ctx.measureText(text).width;
+            ctx.fillStyle = backgroundcolor;
+            ctx.font = fontsize;
+            ctx.fillRect(x, y, width, height);
+            ctx.strokeRect(x, y, width, height);
+            ctx.strokeStyle = bordercolor;
+            ctx.fillStyle = textcolor;
+            // ctx.moveTo(x , y + height/2);
+            // ctx.lineTo(x + width/2 - textwidth/4 ,y + height/2);
+            // ctx.moveTo(x + width, y + height/2);
+            // ctx.lineTo(x + width  , y )
+            ctx.stroke();
+            ctx.fillText(text, x + width - textwidth - marginright, y + height / 2 + 4,);
+        };
+        function drawcellmiddle(ctx, x, y, width, height, text, fontsize = "10px Arial", backgroundcolor = "#ffffff", bordercolor = "#c3c3c3", textcolor = "#000000") {
+            var textwidth = ctx.measureText(text).width;
+            ctx.fillStyle = backgroundcolor;
+            ctx.font = fontsize;
+            ctx.fillRect(x, y, width, height);
+            ctx.strokeRect(x, y, width, height);
+            ctx.strokeStyle = bordercolor;
+            ctx.fillStyle = textcolor;
+            // ctx.moveTo(x , y + height/2);
+            // ctx.lineTo(x + width ,y + height/2);
+            // ctx.moveTo(x + width/2, y);
+            // ctx.lineTo(x + width/2, y + height )
+            ctx.stroke();
+            ctx.fillText(text, x + width / 2 - textwidth / 2, y + height / 2 + 4,);
+        };
+
+        function drawtext(ctx, x, y, width, height, text, fontsize = "16px Arial", textcolor = "#000000") {
+            var textwidth = ctx.measureText(text).width;
+            ctx.font = fontsize;
+            ctx.fillStyle = textcolor
+            // ctx.moveTo(x, y + height / 2);
+            // ctx.lineTo(x + width, y + height / 2);
+            // ctx.moveTo(x + width / 2, y);
+            // ctx.lineTo(x + width / 2, y + height)
+            // ctx.stroke();
+            ctx.fillText(text, x + width / 2, y);
+        };
+
+        function drawheader(ctx, x, y, width,  text, fontsize = "16px Arial", textcolor = "#000000") {
+            // var textwidth = ctx.measureText(text).width;
+            ctx.font = fontsize;
+            ctx.fillStyle = textcolor
+            // ctx.moveTo(x, y );
+            // ctx.lineTo(x + width, y );
+            // ctx.moveTo(x + width / 2, y);
+            // ctx.lineTo(x + width / 2, y)
+            // ctx.stroke();
+            ctx.fillText(text, x + width / 2, y);
+        };
+
+        function drawimage(ctx, x, y, width, height, src) {
+            var img = new Image;
+            img.addEventListener("load", function () {
+                ctx.drawImage(img, x, y, width, height);
+            });
+            img.setAttribute("src", src);
+
+            // Danger(?) Attempting to use image immediately after setting src
+            console.log(img.width, img.height);
+        }
+
+
+    </script>
+</head>
+
+<body>
+
+    <canvas id="myCanvas" width="475" height="680" style="border:2px solid #000000;">
+        Your browser does not support the HTML canvas tag.
+    </canvas>
+
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        var row = 200;
+        var rowright = 50;
+        const maxWidth = 90;
+        const maxWidth2 = 120;
+        const lineHeight = 10;
+        const CONST_X2 = 120;
+        const CONST_HEIGHT2 = 30;
+        ///////////// Header ///////
+        drawheader(ctx, CONST_X1, 30, 100,  "CÔNG TY ABCD - PHIẾU LƯƠNG 8/2022", "bold 18px Noto Serif", "#000000");
+        //////////////// Image ///////////
+        drawimage(ctx, CONST_X1, 50, 120, 120, "https://cskh.mobi/temp/img/logo7.png")
+        ///////////// Top right drawtext ////////////
+        drawtext(ctx, CONST_X2, rowright, 90, CONST_HEIGHT, "Họ và Tên", "12px Noto Serif", "#000000")
+        drawtext(ctx, CONST_X2 + 120, rowright, 90, CONST_HEIGHT, "Luis Thomas", " 12px Noto Serif", "#000000")
+        rowright = rowright + CONST_HEIGHT
+        drawtext(ctx, CONST_X2, rowright, 90, CONST_HEIGHT, "MSNV", "12px Noto Serif", "#000000")
+        drawtext(ctx, CONST_X2 + 120, rowright, 90, CONST_HEIGHT, "202124", " 12px Noto Serif", "#000000")
+        rowright = rowright + CONST_HEIGHT
+        drawtext(ctx, CONST_X2, rowright, 90, CONST_HEIGHT, "Phòng ban", "12px Noto Serif", "#000000")
+        drawtext(ctx, CONST_X2 + 120, rowright, 90, CONST_HEIGHT, "Sản Xuất", " 12px Noto Serif", "#000000")
+        rowright = rowright + CONST_HEIGHT
+        drawtext(ctx, CONST_X2, rowright, 90, CONST_HEIGHT, "Hình thức chi lương", "12px Noto Serif", "#000000")
+        drawtext(ctx, CONST_X2 + 120, rowright, 90, CONST_HEIGHT, "148583056", " 12px Noto Serif", "#000000")
+        rowright = rowright + CONST_HEIGHT
+        drawtext(ctx, CONST_X2, rowright, 90, CONST_HEIGHT, "Vị trí", "12px Noto Serif", "#000000")
+        drawtext(ctx, CONST_X2 + 120, rowright, 90, CONST_HEIGHT, "Tổ trưởng tổ BTP bàn ngồi & phụ kiện", " 12px Noto Serif", "#000000")
+        rowright = rowright + CONST_HEIGHT
+        drawtext(ctx, CONST_X2, rowright, 90, CONST_HEIGHT, "Giờ công chuẩn", "12px Noto Serif", "#000000")
+        drawtext(ctx, CONST_X2 + 120, rowright, 90, CONST_HEIGHT, "208", " 12px Noto Serif", "#000000")
+        rowright = rowright + CONST_HEIGHT
+        drawtext(ctx, CONST_X2, rowright, 90, CONST_HEIGHT, "Lương cơ bản", "12px Noto Serif", "#000000")
+        drawtext(ctx, CONST_X2 + 120, rowright, 90, CONST_HEIGHT, "6,070,000", " 12px Noto Serif", "#000000")
+        rowright = rowright + CONST_HEIGHT
+        drawtext(ctx, CONST_X2, rowright, 90, CONST_HEIGHT, "Ngày nhận việc", "12px Noto Serif", "#000000")
+        drawtext(ctx, CONST_X2 + 120, rowright, 90, CONST_HEIGHT, "02/06/2020", " 12px Noto Serif", "#000000")
+        //////////////////// Table Cell /////////////////////
+        drawcellmiddle(ctx, CONST_X1, row, 90, 20, "Khoản Mục", " 10px 'Noto Serif'", "#f2f2f2")
+        drawcell(ctx, CONST_X1 + 90, row, 60, 20, "Đơn Vị Tính", " 10px 'Noto Serif'", "#f2f2f2")
+        drawcell(ctx, CONST_X1 + 150, row, 60, 20, "Giờ Công TT", " 10px 'Noto Serif'", "#f2f2f2")
+        drawcellmiddle(ctx, CONST_X1 + 210, row, 60, 20, "Nghỉ Phép", " 10px 'Noto Serif'", "#f2f2f2")
+        drawcell(ctx, CONST_X1 + 270, row, 60, 20, "Nghỉ Chế Độ", " 10x 'Noto Serif'", "#f2f2f2")
+        drawcellmiddle(ctx, CONST_X1 + 330, row, 60, 20, "Nghỉ KL", " 10px 'Noto Serif'", "#f2f2f2")
+        drawcellmiddle(ctx, CONST_X1 + 390, row, 60, 20, "Lương", " 10px 'Noto Serif'", "#f2f2f2")
+        row = row + CONST_HEIGHT;
+        drawcell(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Lương Ngày Công")
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Giờ")
+        drawcellmiddle(ctx, CONST_X1 + 150, row, 60, CONST_HEIGHT, "196")
+        drawcellmiddle(ctx, CONST_X1 + 210, row, 60, CONST_HEIGHT, "0")
+        drawcellmiddle(ctx, CONST_X1 + 270, row, 60, CONST_HEIGHT, "0")
+        drawcellmiddle(ctx, CONST_X1 + 330, row, 60, CONST_HEIGHT, "0")
+        drawcellmiddle(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "5,719,808")
+        row = row + CONST_HEIGHT
+        drawcell(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Tiền làm thêm giờ")
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Giờ")
+        drawcellmiddle(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "503,401")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "Số giờ làm thêm")
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "11,5")
+        row = row + CONST_HEIGHT
+        wrapText(ctx, CONST_X1, row, CONST_WIDTH, CONST_HEIGHT2, "Phụ cấp trách nhiệm", maxWidth, lineHeight)
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT2, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT2, "600,000")
+        wrapText(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT2, "Phụ cấp kiêm nhiệm, xe nâng, kiếm việc", maxWidth2, lineHeight)
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT2, "0")
+        row = row + CONST_HEIGHT2
+        drawcell(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Hỗ Trợ Nhà Ở")
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "300,000")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "Trợ Cấp Sức Khoẻ")
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "400,000")
+        row = row + CONST_HEIGHT
+        drawcell(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Thưởng ABCD")
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "400,000")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "Thưởng KQCV")
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "400,000")
+        row = row + CONST_HEIGHT
+        drawcell(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Phép Năm HH, QS")
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "583,654")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "Tiền Ăn Giữa Ca")
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "575,000")
+        row = row + CONST_HEIGHT
+        drawcell(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Thưởng KK")
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "0")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "Thưởng TT")
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "0")
+        row = row + CONST_HEIGHT
+        drawcell(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Truy Lãnh")
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "0")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "Chế Độ 1,5h")
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "0")
+        row = row + CONST_HEIGHT
+        wrapText(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Số tiền lên xuống hàng xe: Tải+Cont", maxWidth, lineHeight)
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "0")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "Trợ Cấp Gửi Trễ")
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "100,000")
+        row = row + CONST_HEIGHT
+        drawcellmiddle(ctx, CONST_X1, row, 270, 40, "TỔNG THU NHẬP", "bold 12px 'Noto Serif'", "#f2f2f2", "", "#0000ff")
+        drawcellright(ctx, CONST_X1 + 270, row, 180, 40, "9,641,863", "bold 12px 'Noto Serif'", "#f2f2f2", "", "#0000ff")
+        row = row + CONST_HEIGHT
+        row = row + CONST_HEIGHT
+        drawcell(ctx, CONST_X1, row, 450, 20, "Các Khoản Khẩu Trừ Vào Lương Trong Tháng 08/2022", "bold 10px 'Noto Serif'")
+        row = row + CONST_HEIGHT
+        wrapText(ctx, CONST_X1, row, 90, CONST_HEIGHT2, "Khẩu Trừ BHXH bắt buộc (10,5%)", maxWidth, lineHeight)
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT2, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT2, "748,650")
+        wrapText(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT2, "Khẩu Trừ Thuế TN CN", maxWidth, lineHeight)
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT2, "0")
+        row = row + CONST_HEIGHT2
+        wrapText(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Khẩu Trừ Đoàn Phí CĐ", maxWidth, lineHeight)
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "42,000")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "Tạm Ứng")
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "200,000")
+        row = row + CONST_HEIGHT
+        drawcell(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Truy Thu Khác")
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "0")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "Truy Thu Tiền Thẻ BHYT")
+        drawcellright(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "0")
+        row = row + CONST_HEIGHT
+        drawcell(ctx, CONST_X1, row, 90, CONST_HEIGHT, "Thu Hộ Tiền Cơm")
+        drawcellmiddle(ctx, CONST_X1 + 90, row, 60, CONST_HEIGHT, "Đồng")
+        drawcellright(ctx, CONST_X1 + 150, row, 120, CONST_HEIGHT, "0")
+        drawcell(ctx, CONST_X1 + 270, row, 120, CONST_HEIGHT, "")
+        drawcell(ctx, CONST_X1 + 390, row, 60, CONST_HEIGHT, "")
+        row = row + CONST_HEIGHT
+        drawcellmiddle(ctx, CONST_X1, row, 270, 40, "THỰC NHẬN", "bold 12px 'Noto Serif'", "#f2f2f2", "", "#0000ff")
+        drawcellright(ctx, CONST_X1 + 270, row, 180, 40, "8,651,213", "bold 12px 'Noto Serif'", "#f2f2f2", "", "#0000ff")
+        row = row + CONST_HEIGHT
+        //////////////////////////////////////////////////////////// Table Header ///////////
+        row = row + CONST_HEIGHT
+        drawcell(ctx, CONST_X1, row, 450, 30, "Lưu ý: Đề nghị anh/chị CNV vui lòng tuyệt đối giữ bí mật về lương", " 10px 'Times New Roman'", "#ffffff", "", "red")
+
+    </script>
+
+</body>
+
+</html>
